@@ -1240,18 +1240,16 @@ public abstract class Program extends JApplet
 			}
 		}
         if (className == null && System.getProperty("sun.java.command") != null) {
-            // these are java classes that "wrap" other java programs
-            List<String> javaWrappers = Arrays.asList(
-                    "com.intellij.rt.execution.application.AppMain" // intellij
-            );
-            List<String> tokens = new ArrayList<String>(Arrays.asList(System.getProperty("sun.java.command").split("\\s+")));
-            while (tokens.size() > 0 && javaWrappers.contains(tokens.get(0))) {
-                tokens.remove(0);
+            for (String token : System.getProperty("sun.java.command").split("\\s+")) {
+                try {
+                    Class klass = Class.forName(token);
+                    if (Program.class.isAssignableFrom(klass)) {
+                        className = klass.getName();
+                        break;
+                    }
+                } catch (ClassNotFoundException e) {
+                }
             }
-            if (tokens.size() > 0) {
-                className = tokens.get(0);
-            }
-
         }
 		if (className == null) {
 			String commandLine = getCommandLine();
