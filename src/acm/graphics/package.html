@@ -1,0 +1,56 @@
+<html>
+<head>
+<title>The acm.graphics Package</title>
+</head>
+<body>
+This package provides a set of classes that support the creation of simple,
+object-oriented graphical displays.  The basic model is that of a felt board
+of the sort one might use as a child.  The felt board itself is represented by
+the <a href="GCanvas.html"><code><b>GCanvas</b></code></a> class, which is a lightweight
+container that supports the addition of graphical objects that correspond to the
+shapes attached to the board.  These graphical objects come from a variety of
+classes that represent geometrical shapes and other graphical entities including
+lines, ovals, rectangles, images, and strings.
+
+<p>The standard approach to using the <code><b>acm.graphics</b></code> package consists
+of the following steps:
+
+<ol>
+<li>Allocate a new <code><b>GCanvas</b></code> object to serve as the surface to which
+subsequent graphical objects are attached.
+<li>Make the canvas appear on the screen by adding it to some component that
+is displayed.  The simplest strategy, for example, is to create a <code><b>JFrame</b></code>
+object and then add the <code><b>GCanvas</b></code> at the center of that frame.
+<li>Use the <code><b>add</b></code> method in <code><b>GCanvas</b></code> to add new graphical
+objects from the <code><b>GObject</b></code> hierarchy.
+</ol>
+
+<p>As an example, the following main program follows this outline to display a red square
+on the screen:
+
+<p><table cellspacing=0 cellpadding=0><tr><td width=36>&nbsp;</td>
+<td><table cellspacing=0 cellpadding=0><tr><td><pre><code><b>
+public static void main(String[] args) {
+   GCanvas gc = new GCanvas();
+   JFrame frame = new JFrame();
+   frame.getContentPane().add(BorderLayout.CENTER, gc);
+   GRectangle square = new GRectangle(100, 100, 200, 200);
+   square.setFilled(true);
+   square.setColor(Color.RED);
+   gc.add(square);
+   frame.show();
+}
+<code><b></pre></td></tr></table></td></tr></table>
+
+<p>Much of this boilerplate can be eliminated by using the
+<a href="../program/GraphicsProgram.html"><code><b>GraphicsProgram</b></code></a> class
+in the <a href="../program/package-summary.html"><code><b>acm.program</b></code></a> package.
+
+<p>The public classes in the <code><b>acm.graphics</b></code> package can be diagrammed
+as follows:
+
+<p><table border=1 cellspacing=0 cellpadding=4 width=600>
+<tr><td align=center><img src="../../../../images/GraphicsClasses.gif"></td></tr>
+</table>
+</body>
+</html>

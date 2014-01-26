@@ -1,0 +1,76 @@
+<html>
+<head>
+<title>The acm.program Package</title>
+</head>
+<body>
+This package provides a set of classes that simplify the creation of programs.
+The package includes four abstract classes, each of which uses a particular
+paradigm for input and output, as follows:
+
+<p><table border=0>
+<tr><td valign=top><a href="Program.html"><code><b>Program</b></code></a>&nbsp;&nbsp;</td>
+<td>This class is the root of the program hierachy and defines a program in which
+input and output are performed using the system console, which is redirected to
+the standard Java I/O streams <code><b>System.in</b></code> and <code><b>System.out</b></code>.</td></tr>
+
+<tr><td valign=top><a href="ConsoleProgram.html"><code><b>ConsoleProgram</b></code></a>&nbsp;&nbsp;</td>
+<td>This class is similar to <a href="Program.html"><code><b>Program</b></code></a> but
+fills the program frame with an interactive console (as defined in the
+<a href="../io/Console.html"><code><b>Console</b></code></a> class in the
+<a href="../io/package-summary.html"><code><b>acm.io</b></code></a> package).</td></tr>
+
+<tr><td valign=top><a href="DialogProgram.html"><code><b>DialogProgram</b></code></a>&nbsp;&nbsp;</td>
+<td>This class extends the basic functionality of the <a href="Program.html"><code><b>Program</b></code></a>
+class so that input operations are performed using the
+<a href="../io/DialogIO.html"><code><b>DialogIO</b></code></a> class in the
+<a href="../io/package-summary.html"><code><b>acm.io</b></code></a> package.</td></tr>
+
+<tr><td valign=top><a href="GraphicsProgram.html"><code><b>GraphicsProgram</b></code></a>&nbsp;&nbsp;</td>
+<td>This class is similar to <a href="Program.html"><code><b>Program</b></code></a> but
+fills the program frame with a
+<a href="../graphics/GCanvas.html"><code><b>GCanvas</b></code></a> (as described in the
+<a href="../graphics/package-summary.html"><code><b>acm.graphics</b></code></a> package).</td></tr>
+</table>
+
+<p>The principal advantages of using the <code><b>Program</b></code> class are:
+
+<ul>
+<li>The conventional pattern of use associated with the <code><b>acm.program</b></code> package moves
+students away from the imperative style of <code><b>public&nbsp;static&nbsp;void&nbsp;main</b></code>
+into a more pedagogically defensible framework in which students are always working in the
+context of an object.
+<li>The <code><b>Program</b></code> class allows Java applications to double as applets,
+thereby making it possible for intructors to use either paradigm in a consistent way.
+Even for those instructors that choose to focus on the application paradigm, using
+the <code><b>Program</b></code> class makes it much easier for students to make their code
+available on the web.  Moreover, because the <code><b>Program</b></code> class is defined
+to be a subclass of <code><b>Applet</b></code>, applications that run in that domain can
+take advantage of such applet-based features as loading audio clips and images from
+the code base.
+<li>The <code><b>Program</b></code> class includes several features that make instruction
+easier, such as the definition of standard menu bars that support operations like
+printing and running programs with a test script.
+<li>The classes in the <code><b>acm.program</b></code> package offer a compelling example
+of an inheritance hierarchy that introductory students can understand and appreciate
+right from the beginning of their first course.
+</ul>
+
+<p>In most environments, the only thing students need to do to create a new
+program is to define a <code><b>Program</b></code> subclass that implements a <code><b>run</b></code>
+method.  For example, the following class definition creates a traditional,
+stream-oriented program that reads in two integers and computes their sum:
+
+<p><table cellspacing=0 cellpadding=0><tr><td width=36>&nbsp;</td>
+<td><table cellspacing=0 cellpadding=0><tr><td><pre><code><b>
+public class Add2 extends ConsoleProgram {
+   public void run() {
+      println("This program adds two numbers.");
+      int n1 = readInt("Enter n1: ");
+      int n2 = readInt("Enter n2: ");
+      int total = n1 + n2;
+      println("The total is " + total + ".");
+   }
+}
+<code><b></pre></td></tr></table></td></tr></table>
+</body>
+</html>
