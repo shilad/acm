@@ -1239,6 +1239,20 @@ public abstract class Program extends JApplet
 				/* Empty */
 			}
 		}
+        if (className == null && System.getProperty("sun.java.command") != null) {
+            // these are java classes that "wrap" other java programs
+            List<String> javaWrappers = Arrays.asList(
+                    "com.intellij.rt.execution.application.AppMain" // intellij
+            );
+            List<String> tokens = new ArrayList<String>(Arrays.asList(System.getProperty("sun.java.command").split("\\s+")));
+            while (tokens.size() > 0 && javaWrappers.contains(tokens.get(0))) {
+                tokens.remove(0);
+            }
+            if (tokens.size() > 0) {
+                className = tokens.get(0);
+            }
+
+        }
 		if (className == null) {
 			String commandLine = getCommandLine();
 			className = readMainClassFromCommandLine(commandLine);
@@ -1610,13 +1624,6 @@ public abstract class Program extends JApplet
  */
 	protected static String readMainClassFromCommandLine(String line) {
 		if (line == null) return null;
-        List<String> tokens = Arrays.asList(line.split("\\s+"));
-        if (tokens.contains("com.intellij.rt.execution.application.AppMain")) {
-            int i = tokens.indexOf("com.intellij.rt.execution.application.AppMain");
-            if (i + 1 < tokens.size()) {
-                return tokens.get(i+1);
-            }
-        }
 		boolean jarFlag = false;
 		try {
 			StreamTokenizer tokenizer = new StreamTokenizer(new StringReader(line));
